@@ -137,6 +137,9 @@ $(function () {
                 //console.log(nowPos.left + '' + nowPos.top);
                 drag.resetDom(startPos, nowPos);
                 //drag.animate({left:startPos.left-nowPos.left,top:startPos.top-nowPos.top},'2000');
+            }else{
+                //弹出对话框，遮罩
+                $('#shade').css('background','#929394').removeClass('dsp-none').addClass('dsp-block');
             }
         }
         //最小的圆中的文本发生变化
@@ -150,7 +153,7 @@ $(function () {
             progressbarInner = progressbar.find( ".ui-progressbar-value" );
             progressbar.progressbar( "option","value",areaValuenow);
         }else{
-            //弹出对话框
+            //进度条超过100%时点击，弹出对话框
             
         }
 
@@ -158,8 +161,12 @@ $(function () {
 
     /** 点击帮助按钮，弹出对话框 **/
     $('#help').on('click',function(){
-        console.log('进来！');
         $('#shade').removeClass('dsp-none').addClass('dsp-block');
         $('#helpwrap').removeClass('dsp-none').addClass('dsp-block');
+    });
+
+    $('#closeHelpBtn').on('click',function(){
+        $('#shade').removeClass('dsp-block').addClass('dsp-none');
+        $('#helpwrap').removeClass('dsp-block').addClass('dsp-none');
     });
 });
