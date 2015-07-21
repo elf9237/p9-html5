@@ -56,7 +56,6 @@
     width: 200px;
     height: 700px;
     margin-top:80px;
-    position:relative;
 }
 
 .leftbar div{
@@ -251,6 +250,7 @@ h1{
 .close-help-btn{
     width:100px;
     margin:0 auto;
+    background-image:url('../images/helpclosebtn.png');
 }
 /** footer样式**/
 .footer{
