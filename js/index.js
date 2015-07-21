@@ -105,16 +105,31 @@ $(function () {
 
     $('#circle').droppable({
         accept: ".leftbar div",
+        activate:function(event,ui){
+            var dragobject = ui.draggable;
+            if(dragobject.find('img').attr('class')){
+                dragobject.find('img').remove();;
+            }
+        },
         over: function (event, ui) {
             var $that = ui.draggable;
             $that.draggable('option', 'revert', 'false');
         },
         deactivate:function(event,ui){
-
+            //放开draggable的时候，出现红色飞刀动画
+            var dragobject  = ui.draggable;
+            if(!dragobject.find('img').attr('class')){
+                dragobject.append('<img class="fly-cuter" src="images/flycuter.png" />');
+                //img原来的坐标： top:-70px，left:100px
+                dragobject.find('img').animate({top:-35,left:70});
+            }
+        },
+        out:function(event,ui){
+            $('.leftbar div').find('img').remove();
         }
     });
     //将.left设为droppable
-    $('.left').droppable({
+   /* $('.left').droppable({
         accept: ".leftbar div",
         drop: function (event, ui) {
             var dragObject = ui.draggable;
@@ -124,23 +139,29 @@ $(function () {
             var nowPosition = dragObject.getNowPosition();
             dragObject.resetDom(startPosition, nowPosition);
             //console.log('startPosition.left:' + startPosition.left + ',startPosition.top:' + startPosition.top);
+        },
+        out:function(event,ui){
+            $('.leftbar div').find('img').remove();
         }
-    });
+    });*/
     /** 点击Next,所有term复位，并且最小的圆中的文本发生变化 **/
     $('.next-btn').on('click', function () {
         //所有term复位
+        var count = 0;
         for (var i = 0; i < 15; i++) {
             var drag = $('#drag' + (i + 1));
             var nowPos = drag.getNowPosition();
             var startPos = positionList[i];
             if (startPos.left != nowPos.left || startPos.top != nowPos.top) {
-                //console.log(nowPos.left + '' + nowPos.top);
+                count+=1;
                 drag.resetDom(startPos, nowPos);
-                //drag.animate({left:startPos.left-nowPos.left,top:startPos.top-nowPos.top},'2000');
-            }else{
-                //弹出对话框，遮罩
-                $('#shade').css('background','#929394').removeClass('dsp-none').addClass('dsp-block');
             }
+        }
+        //怎么判断term（absolute）是否在同心圆内？下面是折衷的办法
+        if(count == 0){
+            $('#shade').css('background','#929394').removeClass('dsp-none').addClass('dsp-block');
+            alert("please select a term on the left and drop onto the target");
+            $('#shade').css('background','#fff').removeClass('dsp-block').addClass('dsp-none');
         }
         //最小的圆中的文本发生变化
         $('#circleP6').text();
@@ -164,7 +185,7 @@ $(function () {
         $('#shade').removeClass('dsp-none').addClass('dsp-block');
         $('#helpwrap').removeClass('dsp-none').addClass('dsp-block');
     });
-
+    /** 点击I'm ready按钮，关闭对话框和遮罩**/
     $('#closeHelpBtn').on('click',function(){
         $('#shade').removeClass('dsp-block').addClass('dsp-none');
         $('#helpwrap').removeClass('dsp-block').addClass('dsp-none');
