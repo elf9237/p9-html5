@@ -184,7 +184,9 @@ $(function () {
                 var startPos = positionList[idNum-1];
                 dragobject.resetDom(startPos);
             }
-            if(nowPos.top < LEFTBAR.LEFTMIN||nowPos.top > DROPPOS.TOPMAX){
+            console.log(nowPos.top+LEFTBAR.LEFTMIN);
+            if(nowPos.top < LEFTBAR.TOPMIN||nowPos.top > DROPPOS.TOPMAX){
+                console.log('进入');
                 var dragId = dragobject.attr('id');
                 var idNum = sliceDragId(dragId);
                 var startPos = positionList[idNum-1];
