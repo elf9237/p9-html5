@@ -2,30 +2,69 @@
  * Created by huangzhitan on 15-7-06
  */
 $(function () {
-    /** 方法定义**/
+    /** 常量定义**/
+    var TERMNUM = 22;//term的个数
+    var IDPRENUM =4;//draggable元素id的字母前缀字数
+    var CIRCLEPOS = {};
+    CIRCLEPOS.LEFTMIN = 362;//圆的x坐标最左
+    CIRCLEPOS.LEFTMAX = 962;//圆的x坐标最右
+    CIRCLEPOS.TOPMIN = 76;
+    CIRCLEPOS.TOPMAX = 676;
+    /** 方法定义 **/
     //获得当前位置
     $.fn.getNowPosition = function () {
         var position = {};
         var top = $(this).offset().top;
         var left = $(this).offset().left;
+        //var top = $(this).position().top;
+        //var left = $(this).position().left;
         position.top = top;
         position.left = left;
         return position;
-
     };
     //让draggable元素复位
     $.fn.resetDom = function (startPos, nowPos) {
         //获得draggable的位移的left值和top值
-        var moveLeft = startPos.left - nowPos.left;
-        var moveTop = startPos.top - nowPos.top;
-        //console.log('moveLeft:' + moveLeft + ',moveTop:' + moveTop);
-        //动画:从当前位置移动到初始位置
-        $(this).animate({left:startPos.left, top:moveTop}, '1500');
+        var moveLeft = (nowPos.left-startPos.left);
+        var moveTop = (nowPos.top-startPos.top);
+        //console.log('startPos:' + startPos.left + ',startPos:' + startPos.top);
+        //从当前位置移动到初始位置
+        //$(this).css('transform','translate(-'+moveLeft+'px,-'+moveTop+'px)');
+        $(this).animate({left:startPos.left,top:startPos.top},'1000',function(){
+                var nowPos = $(this).getNowPosition();
+                var isIn = isInCircle(nowPos);
+                //去掉红色飞刀
+                if(!isIn){
+                    if($(this).find('img').attr('class')){
+                        $(this).find('img').remove();
+                    }
+                }
+            });
+
+
     };
     //分割字符串，获得term的id中的数字
     var sliceDragId = function (dragId) {
-        var idNum = dragId.slice(4);
+        var idNum = dragId.slice(IDPRENUM);
         return idNum;
+    };
+    var isInCircle = function(nowPosition){
+        var leftIn = nowPosition.left > CIRCLEPOS.LEFTMIN && nowPosition.left < CIRCLEPOS.LEFTMAX;
+        var topIn =  nowPosition.top > CIRCLEPOS.TOPMIN && nowPosition.top < CIRCLEPOS.TOPMAX;
+        if(leftIn && topIn){
+            return true;
+        }else{
+            return false;
+        }
+    };
+    var isInLefBar = function(nowPosition){
+        var leftIn = nowPosition.left > CIRCLEPOS.LEFTMIN && nowPosition.left < CIRCLEPOS.LEFTMAX;
+        var topIn =  nowPosition.top > CIRCLEPOS.TOPMIN && nowPosition.top < CIRCLEPOS.TOPMAX;
+        if(leftIn && topIn){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /** 初始化同心圆 **/
@@ -79,19 +118,19 @@ $(function () {
     context.stroke();
 
     //初始化进度条
-    $('#progressBar').progressbar({});
-
+    $('#progressBar').progressbar({value:10});
 
     //将所有term的初始位置保存到数组
     var positionList = [];
-    for (var i = 0; i < 15; i++) {
+    for (var i = 0; i < TERMNUM; i++) {
         var position = $('#drag' + (i + 1)).getNowPosition();
         var object = {left: position.left, top: position.top};
         positionList.push(object);
     }
 
+
     //termTextList
-    var termTextList = [];
+    var termTextList = [];//term的初始化
 
     //console.log('positionList[0].left:' + positionList[0].left + ',positionList[0].top:' + positionList[0].top);
     //调用接口，初始化所有term
@@ -99,46 +138,73 @@ $(function () {
     /** 拖动效果 ，利用jquery.ui.Draggable和Droppable**/
     $('.leftbar div').draggable({
         revert: true,
-        containment: '.top'
+        containment: '.top',
+        refreshPosition:true,
         //distance:'200',//超过200px才开始拖动
+        start:function(event,ui){
+            $(this).css('transform','none');
+        },
+        stop:function(event,ui){
+            //放开draggable的时候，出现红色飞刀动画
+            var dragobject  = $(this);
+            var nowPos = dragobject.getNowPosition();
+            var isIn = isInCircle(nowPos);
+            if(isIn){
+                if(!dragobject.find('img').attr('class')){
+                    dragobject.append('<img class="fly-cuter" src="images/flycuter.png" />');
+                    //img原来的坐标： top:-70px，left:100px
+                    dragobject.find('img').animate({top:-35,left:70});
+                }
+            }
+
+        }
     });
+
+
 
     $('#circle').droppable({
         accept: ".leftbar div",
         activate:function(event,ui){
             var dragobject = ui.draggable;
+            //移除红色飞刀
             if(dragobject.find('img').attr('class')){
-                dragobject.find('img').remove();;
+                dragobject.find('img').remove();
             }
         },
         over: function (event, ui) {
             var $that = ui.draggable;
             $that.draggable('option', 'revert', 'false');
         },
+        drag:function(event,ui){
+
+        },
         deactivate:function(event,ui){
-            //放开draggable的时候，出现红色飞刀动画
-            var dragobject  = ui.draggable;
-            if(!dragobject.find('img').attr('class')){
-                dragobject.append('<img class="fly-cuter" src="images/flycuter.png" />');
-                //img原来的坐标： top:-70px，left:100px
-                dragobject.find('img').animate({top:-35,left:70});
-            }
+//            //放开draggable的时候，出现红色飞刀动画
+//            var dragobject  = ui.draggable;
+//            var nowPos = dragobject.getNowPosition();
+//            var isIn = isInCircle(nowPos);
+//            console.log('nowPos.left:'+nowPos.left+'nowPos.top:'+nowPos.top+'isIn:'+isIn);
+//            if(!dragobject.find('img').attr('class') && isIn){
+//                dragobject.append('<img class="fly-cuter" src="images/flycuter.png" />');
+//                //img原来的坐标： top:-70px，left:100px
+//                dragobject.find('img').animate({top:-35,left:70});
+//            }
         },
         out:function(event,ui){
             $('.leftbar div').find('img').remove();
         }
     });
-    //将.left设为droppable
-   /* $('.left').droppable({
+  /*  //将.left设为droppable
+    $('.leftbar').droppable({
         accept: ".leftbar div",
         drop: function (event, ui) {
-            var dragObject = ui.draggable;
-            var dragId = dragObject.attr('id');
-            var idNum = sliceDragId(dragId);
-            var startPosition = positionList[idNum - 1];
-            var nowPosition = dragObject.getNowPosition();
-            dragObject.resetDom(startPosition, nowPosition);
-            //console.log('startPosition.left:' + startPosition.left + ',startPosition.top:' + startPosition.top);
+//            var dragObject = ui.draggable;
+//            var dragId = dragObject.attr('id');
+//            var idNum = sliceDragId(dragId);
+//            var startPosition = positionList[idNum - 1];
+//            var nowPosition = dragObject.getNowPosition();
+//            dragObject.resetDom(startPosition, nowPosition);
+//            //console.log('startPosition.left:' + startPosition.left + ',startPosition.top:' + startPosition.top);
         },
         out:function(event,ui){
             $('.leftbar div').find('img').remove();
@@ -148,10 +214,11 @@ $(function () {
     $('.next-btn').on('click', function () {
         //所有term复位
         var count = 0;
-        for (var i = 0; i < 15; i++) {
+        for (var i = 0; i < TERMNUM; i++) {
             var drag = $('#drag' + (i + 1));
             var nowPos = drag.getNowPosition();
             var startPos = positionList[i];
+
             if (startPos.left != nowPos.left || startPos.top != nowPos.top) {
                 count+=1;
                 drag.resetDom(startPos, nowPos);
@@ -180,7 +247,7 @@ $(function () {
 
     });
 
-    /** 点击帮助按钮，弹出对话框 **/
+    /** 点击帮助按钮，弹出对话框和遮罩 **/
     $('#help').on('click',function(){
         $('#shade').removeClass('dsp-none').addClass('dsp-block');
         $('#helpwrap').removeClass('dsp-none').addClass('dsp-block');
@@ -190,4 +257,5 @@ $(function () {
         $('#shade').removeClass('dsp-block').addClass('dsp-none');
         $('#helpwrap').removeClass('dsp-block').addClass('dsp-none');
     });
+
 });

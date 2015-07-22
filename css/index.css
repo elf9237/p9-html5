@@ -59,10 +59,10 @@
 }
 
 .leftbar div{
-    margin:10px auto;
-    position:relative;
+    margin:0 auto;
+    position:absolute;
     z-index:2000;
-    width:165px;
+    width:160px;
     background-color:#fff;
 }
 
@@ -70,7 +70,7 @@
     width:160px;
     height:15px;
     line-height: 20px;
-    margin:5px auto;
+    margin:0 auto;
     border:2px solid #EEEEEE;
     border-radius:10px;
     cursor: pointer;
@@ -105,11 +105,11 @@
 }
 
 #circleP2{
-    top:125px;
+    top:130px;
 }
 
 #circleP3{
-    top:175px;
+    top:180px;
 }
 
 #circleP4{
@@ -117,14 +117,105 @@
 }
 
 #circleP5{
-    top:275px;
+    top:285px;
 }
 
 #circleP6{
     top:360px;
     color:#fff;
 }
+#drag1{
+    left:20px;
+    top:50px;
+}
+#drag2{
+    left:20px;
+    top:85px;
+}
+#drag3{
+    left:20px;
+    top:120px;
+}
+#drag4{
+    left:20px;
+    top:155px;
+}
+#drag5{
+    left:20px;
+    top:190px;
+}
+#drag6{
+    left:20px;
+    top:235px;
+}
 
+#drag7{
+    left:20px;
+    top:270px;
+}
+
+#drag8{
+    left:20px;
+    top:305px;
+}
+
+#drag9{
+    left:20px;
+    top:340px;
+}
+#drag10{
+    left:20px;
+    top:375px;
+}
+#drag11{
+    left:20px;
+    top:410px;
+}
+#drag12{
+    left:20px;
+    top:445px;
+}
+#drag13{
+    left:20px;
+    top:480px;
+}
+#drag14{
+    left:20px;
+    top:515px;
+}
+#drag15{
+    left:20px;
+    top:550px;
+}
+#drag16{
+    left:20px;
+    top:585px;
+}
+
+#drag17{
+    left:20px;
+    top:620px;
+}
+#drag18{
+    left:20px;
+    top:655px;
+}
+#drag19{
+    left:20px;
+    top:690px;
+}
+#drag20{
+    left:20px;
+    top:725px;
+}
+#drag21{
+    left:20px;
+    top:760px;
+}
+#drag22{
+    left:20px;
+    top:795px;
+}
 .btn{
     width:60px;
     height:25px;
@@ -254,6 +345,7 @@ h1{
 }
 /** footer样式**/
 .footer{
+    margin-top:100px;
     width:1100px;
     height:25px;
     background-color:#E4E4E6;
