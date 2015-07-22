@@ -308,7 +308,7 @@
     height:350px;
     margin:0 auto;
 }
-.help-content p{
+.help-content p,.excellent-job p{
     margin-top:20px;
 }
 .help-content .step-p{
@@ -345,7 +345,7 @@ h1{
 }
 /** footer样式**/
 .footer{
-    margin-top:100px;
+    margin-top:50px;
     width:1100px;
     height:25px;
     background-color:#E4E4E6;
@@ -378,3 +378,16 @@ h1{
     height:12px;
 }
 
+.excellent-job{
+    width:400px;
+    height:150px;
+    top:260px;
+    font-size:17px;
+}
+.excellent-job h1{
+    font-size:18px;
+}
+.excellent-job p{
+    margin:0 auto;
+    text-align:center;
+}

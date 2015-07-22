@@ -45,9 +45,8 @@ $(function () {
                     }
                 }
             });
-
-
     };
+
     //分割字符串，获得term的id中的数字
     var sliceDragId = function (dragId) {
         var idNum = dragId.slice(IDPRENUM);
@@ -62,6 +61,7 @@ $(function () {
             return false;
         }
     };
+    //判断是否在左边区域
     var isInLefBar = function(nowPosition){
         var leftIn = nowPosition.left > LEFTBAR.LEFTMIN && nowPosition.left < LEFTBAR.LEFTMAX;
         var topIn =  nowPosition.top > LEFTBAR.TOPMIN && nowPosition.top < LEFTBAR.TOPMAX;
@@ -71,6 +71,12 @@ $(function () {
             return false;
         }
     }
+    /** 初始化term列表**/
+    var service = new BaconFFService();
+    console.log(service.GetSurvey(61));
+    alert("sync:" + service.GetSurvey(1));
+    //s.Echo("some text", function(response) { alert("async:" + response.result) });
+
 
     /** 初始化同心圆 **/
     var context = $("#circle").get(0).getContext("2d");//获得上下文
@@ -132,15 +138,13 @@ $(function () {
         var object = {left: position.left, top: position.top};
         positionList.push(object);
     }
-
-
     //termTextList
     var termTextList = [];//term的初始化
 
     //console.log('positionList[0].left:' + positionList[0].left + ',positionList[0].top:' + positionList[0].top);
     //调用接口，初始化所有term
 
-    /** 拖动效果 ，利用jquery.ui.Draggable和Droppable**/
+    /** 拖动效果 ，jquery.ui.Draggable和Droppable**/
     $('.leftbar div').draggable({
         containment: '.top',
         //distance:'200',//超过200px才开始拖动
@@ -160,7 +164,7 @@ $(function () {
                     dragobject.find('img').animate({top:-35,left:70});
                 }
             }
-            if(isInbar||nowPos.top < 50){
+            if(isInbar||nowPos.top < LEFTBAR.LEFTMIN||nowPos.top > DROPPOS.TOPMAX){
                 var dragId = dragobject.attr('id');
                 var idNum = sliceDragId(dragId);
                 var startPos = positionList[idNum-1];
@@ -169,8 +173,6 @@ $(function () {
             }
         }
     });
-
-
 
     $('#circle').droppable({
         accept: ".leftbar div",
@@ -181,15 +183,10 @@ $(function () {
                 dragobject.find('img').remove();
             }
         },
-        over: function (event, ui) {
-            var $that = ui.draggable;
-            $that.draggable('option', 'revert', 'false');
-        },
-        drag:function(event,ui){
-
-        },
-        deactivate:function(event,ui){
-        },
+//        over: function (event, ui) {
+//            var $that = ui.draggable;
+//            $that.draggable('option', 'revert', 'false');
+//        },
         out:function(event,ui){
             $('.leftbar div').find('img').remove();
         }
@@ -202,7 +199,6 @@ $(function () {
             var drag = $('#drag' + (i + 1));
             var nowPos = drag.getNowPosition();
             var startPos = positionList[i];
-
             if (startPos.left != nowPos.left || startPos.top != nowPos.top) {
                 count+=1;
                 drag.resetDom(startPos, nowPos);
@@ -219,16 +215,21 @@ $(function () {
         //每当点击一次next按钮，更新进度条的状态
         progressbar = $( "#progressBar" );
         var areaValuenow =  progressbar.attr('aria-valuenow');
+        console.log('areaValuenow:'+areaValuenow);
         areaValuenow = parseInt(areaValuenow);
-        if(areaValuenow != 100){
+        if(areaValuenow < 100){
             areaValuenow = parseInt(areaValuenow)+5;
             progressbarInner = progressbar.find( ".ui-progressbar-value" );
             progressbar.progressbar( "option","value",areaValuenow);
         }else{
-            //进度条超过100%时点击，弹出对话框
-            
+            //进度条超过100%时，出现遮罩，弹出对话框
+            $('#shade').removeClass('dsp-none').addClass('dsp-block');
+            $('#excellentJob').removeClass('dsp-none').addClass('dsp-block');
+            //十秒钟后刷新页面
+            setTimeout(function(){
+                location.reload();
+            },10000);
         }
-
     });
 
     /** 点击帮助按钮，弹出对话框和遮罩 **/
@@ -241,5 +242,4 @@ $(function () {
         $('#shade').removeClass('dsp-block').addClass('dsp-none');
         $('#helpwrap').removeClass('dsp-block').addClass('dsp-none');
     });
-
 });

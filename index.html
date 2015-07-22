@@ -76,9 +76,25 @@
     </div>
     <div id="closeHelpBtn" class="btn close-help-btn">I'm Ready</div>
 </div>
+<div id="excellentJob" class="dsp-none help-wrap excellent-job">
+    <h1>Excellent job</h1>
+    <p>if this page does not refresh in 10 seconds,</p>
+    <p>&nbsp;&nbsp;please click on the >> button below</p>
+</div>
 <div id="shade" class="shade"></div>
 <script src="js/jquery-2.0.3.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
+<script>
+    function jsonpCallback(result) {
+        alert(result.a);
+        alert(result.b);
+        alert(result.c);
+        for(var i in result) {
+            alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+        }
+    }
+</script>
+<script type="text/javascript" src="http://survey.buzzsponge.com/Bacon/jsongateway.aspx?callback=jsonpCallback&proxy&destination=fluorine&source=Bacon.FFService.BaconFFService"></script>
 <script src="js/index.js"></script>
 </body>
 </html>
