@@ -70,11 +70,25 @@ $(function () {
         }else{
             return false;
         }
-    }
+    };
+//    var jsonpCallback = function(result) {
+//        alert(result.a);
+//        alert(result.b);
+//        alert(result.c);
+//        for(var i in result) {
+//            alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+//        }
+//    }
+//    $.ajax({
+//        url:'http://survey.buzzsponge.com/Bacon/jsongateway.aspx?proxy&destination=fluorine&source=Bacon.FFService.BaconFFService',
+//        success:function(result){
+//            console.log('调用成功');
+//        }
+//    });
     /** 初始化term列表**/
-    var service = new BaconFFService();
-    console.log(service.GetSurvey(61));
-    alert("sync:" + service.GetSurvey(1));
+//    var service = new BaconFFService();
+//    console.log(service.GetSurvey(61));
+//    alert("sync:" + service.GetSurvey(1));
     //s.Echo("some text", function(response) { alert("async:" + response.result) });
 
 
@@ -164,11 +178,16 @@ $(function () {
                     dragobject.find('img').animate({top:-35,left:70});
                 }
             }
-            if(isInbar||nowPos.top < LEFTBAR.LEFTMIN||nowPos.top > DROPPOS.TOPMAX){
+            if(isInbar){
                 var dragId = dragobject.attr('id');
                 var idNum = sliceDragId(dragId);
                 var startPos = positionList[idNum-1];
-                console.log(startPos.left);
+                dragobject.resetDom(startPos);
+            }
+            if(nowPos.top < LEFTBAR.LEFTMIN||nowPos.top > DROPPOS.TOPMAX){
+                var dragId = dragobject.attr('id');
+                var idNum = sliceDragId(dragId);
+                var startPos = positionList[idNum-1];
                 dragobject.resetDom(startPos);
             }
         }
@@ -215,7 +234,6 @@ $(function () {
         //每当点击一次next按钮，更新进度条的状态
         progressbar = $( "#progressBar" );
         var areaValuenow =  progressbar.attr('aria-valuenow');
-        console.log('areaValuenow:'+areaValuenow);
         areaValuenow = parseInt(areaValuenow);
         if(areaValuenow < 100){
             areaValuenow = parseInt(areaValuenow)+5;
