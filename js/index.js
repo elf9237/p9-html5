@@ -2,6 +2,10 @@
  * Created by huangzhitan on 15-7-06
  */
 $(function () {
+
+    //重新载入页面以获取源代码: http://survey.buzzsponge.com/Bacon/jsongateway.aspx?proxy&destination=fluorine&source=Bacon.FFService.BaconFFService
+
+
     /** 常量定义**/
     var TERMNUM = 22;//term的个数
     var IDPRENUM =4;//draggable元素id的字母前缀字数

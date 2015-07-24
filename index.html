@@ -87,7 +87,18 @@
 <script>
 
 </script>
-<!--<script type="text/javascript" src="http://survey.buzzsponge.com/Bacon/jsongateway.aspx?callback=jsonpCallback&proxy&destination=fluorine&source=Bacon.FFService.BaconFFService"></script>-->
+<script type="text/javascript" src="http://survey.buzzsponge.com/Bacon/jsongateway.aspx?proxy&destination=fluorine&source=Bacon.FFService.BaconFFService"></script>
+<script type="text/javascript">
+    /* <![CDATA[ */
+    window.onload = function()
+    {
+        var s = new BaconFFService();
+        console.log(s.GetSurvey(1));
+        alert("sync:" + s.GetSurvey(1));
+        //s.Echo("some text", function(response) { alert("async:" + response.result) });
+    }
+    /* ]]> */
+</script>
 <script src="js/index.js"></script>
 </body>
 </html>
