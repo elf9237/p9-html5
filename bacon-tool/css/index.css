@@ -100,27 +100,27 @@
     left:632px;
 }
 
-#circleP1{
+#circleP6{
     top:75px;
 }
 
-#circleP2{
+#circleP5{
     top:130px;
 }
 
-#circleP3{
+#circleP4{
     top:180px;
 }
 
-#circleP4{
+#circleP3{
     top:225px;
 }
 
-#circleP5{
+#circleP2{
     top:285px;
 }
 
-#circleP6{
+#circleP1{
     top:360px;
     color:#fff;
 }
@@ -215,6 +215,10 @@
 #drag22{
     left:20px;
     top:785px;
+}
+#drag23{
+    left:20px;
+    top:820px;
 }
 .btn{
     width:60px;
@@ -345,7 +349,7 @@ h1{
 }
 /** footer样式**/
 .footer{
-    margin-top:50px;
+    margin-top:100px;
     width:1100px;
     height:25px;
     background-color:#E4E4E6;

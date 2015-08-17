@@ -12,29 +12,8 @@
     <div class="top clearfix">
         <!--  左半部分 -->
         <div class="left clearfix">
-            <div class="leftbar clearfix">
-                <div id="drag1"><a class="menu class1">1111</a></div>
-                <div id="drag2"><a class="menu class2">2222</a></div>
-                <div id="drag3"><a class="menu class3">3333</a></div>
-                <div id="drag4"><a class="menu class4">4444</a></div>
-                <div id="drag5"><a class="menu class5">5555</a></div>
-                <div id="drag6"><a class="menu class6">6666</a></div>
-                <div id="drag7"><a class="menu class7">7777</a></div>
-                <div id="drag8"><a class="menu class8">8888</a></div>
-                <div id="drag9"><a class="menu class9">9999</a></div>
-                <div id="drag10"><a class="menu class10">101010</a></div>
-                <div id="drag11"><a class="menu class11">hhaoise</a></div>
-                <div id="drag12"><a class="menu class12">hhahhaha</a></div>
-                <div id="drag13"><a class="menu class13">hhahhaha</a></div>
-                <div id="drag14"><a class="menu class14">hhahhaha</a></div>
-                <div id="drag15"><a class="menu class15">hhahhaha</a></div>
-                <div id="drag16"><a class="menu class16">hhaoise</a></div>
-                <div id="drag17"><a class="menu class17">hhahhaha</a></div>
-                <div id="drag18"><a class="menu class18">hhahhaha</a></div>
-                <div id="drag19"><a class="menu class19">hhahhaha</a></div>
-                <div id="drag20"><a class="menu class20">hhahhaha</a></div>
-                <div id="drag21"><a class="menu class21">hhahhaha</a></div>
-                <div id="drag22"><a class="menu class22">hhahhaha</a></div>
+            <div id="termList" class="leftbar clearfix">
+            <!-- term列表动态生成-->
             </div>
         </div>
         <!-- 中间分割线-->
@@ -46,12 +25,6 @@
             <div class="btn next-btn">NEXT</div>
             <canvas id="circle" width="650" height="630"></canvas>
             <div class="btn next-btn">NEXT</div>
-            <p id="circleP1" class="circle-p">slightly Related</p>
-            <p id="circleP2" class="circle-p">somewhat Related</p>
-            <p id="circleP3" class="circle-p">Moderately Related</p>
-            <p id="circleP4" class="circle-p">Largely Related</p>
-            <p id="circleP5" class="circle-p">Extremely Related</p>
-            <p id="circleP6" class="circle-p">honest</p>
         </div>
         <div class="divide right-notify"><span>Not related</span></div>
     </div>
@@ -88,17 +61,6 @@
 
 </script>
 <script type="text/javascript" src="http://survey.buzzsponge.com/Bacon/jsongateway.aspx?proxy&destination=fluorine&source=Bacon.FFService.BaconFFService"></script>
-<script type="text/javascript">
-    /* <![CDATA[ */
-    window.onload = function()
-    {
-        var s = new BaconFFService();
-        console.log(s.GetSurvey(1));
-        alert("sync:" + s.GetSurvey(1));
-        //s.Echo("some text", function(response) { alert("async:" + response.result) });
-    }
-    /* ]]> */
-</script>
 <script src="js/index.js"></script>
 </body>
 </html>

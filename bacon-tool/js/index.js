@@ -7,6 +7,7 @@ $(function () {
 
 
     /** 常量定义**/
+    var SURVEYID = 61;
     var TERMNUM = 22;//term的个数
     var IDPRENUM =4;//draggable元素id的字母前缀字数
     var DROPPOS = {};
@@ -19,6 +20,7 @@ $(function () {
     LEFTBAR.LEFTMAX = 140;
     LEFTBAR.TOPMIN = 50;
     LEFTBAR.TOPMAX = 785;
+
     /** 方法定义 **/
     //获得当前位置
     $.fn.getNowPosition = function () {
@@ -31,6 +33,13 @@ $(function () {
         position.left = left;
         return position;
     };
+    //获取随机数
+    function getRadomNum(Min,Max){
+        var Range = Max-Min;
+        var Rand =  Math.random();
+        return(Min+Math.round(Rand*Range));
+    }
+
     //让draggable元素复位
     $.fn.resetDom = function (startPos) {
 //        //获得draggable的位移的left值和top值
@@ -48,7 +57,7 @@ $(function () {
                         $(this).find('img').remove();
                     }
                 }
-            });
+        });
     };
 
     //分割字符串，获得term的id中的数字
@@ -56,6 +65,7 @@ $(function () {
         var idNum = dragId.slice(IDPRENUM);
         return idNum;
     };
+    //判断是否在circle中
     var isInCircle = function(nowPosition){
         var leftIn = nowPosition.left > DROPPOS.LEFTMIN && nowPosition.left < DROPPOS.LEFTMAX;
         var topIn =  nowPosition.top > DROPPOS.TOPMIN && nowPosition.top < DROPPOS.TOPMAX;
@@ -75,76 +85,150 @@ $(function () {
             return false;
         }
     };
-//    var jsonpCallback = function(result) {
-//        alert(result.a);
-//        alert(result.b);
-//        alert(result.c);
-//        for(var i in result) {
-//            alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
-//        }
-//    }
-//    $.ajax({
-//        url:'http://survey.buzzsponge.com/Bacon/jsongateway.aspx?proxy&destination=fluorine&source=Bacon.FFService.BaconFFService',
-//        success:function(result){
-//            console.log('调用成功');
-//        }
-//    });
-    /** 初始化term列表**/
-//    var service = new BaconFFService();
-//    console.log(service.GetSurvey(61));
-//    alert("sync:" + service.GetSurvey(1));
-    //s.Echo("some text", function(response) { alert("async:" + response.result) });
-
-
+    //字符串转成js对象
+    function toObject(str){
+        return (new Function('return '+str))();
+    }
     /** 初始化同心圆 **/
+    //圆也要动态创建
     var context = $("#circle").get(0).getContext("2d");//获得上下文
-    context.beginPath();//开始路径
-    context.fillStyle = "rgb(255,255,255)";
-    context.strokeStyle = "rgb(210,210,210)";
-    context.arc(320, 320, 300, 0, Math.PI * 2, false);//绘制一个圆形
-    context.closePath();//结束路径
-    context.fill();//填充路径
-    context.stroke();
+    function circleone(context){
+        context.beginPath();//开始路径
+        context.fillStyle = "rgb(117,170,214)";
+        context.strokeStyle = "rgb(210,210,210)";
+        context.arc(320, 320, 50, 0, Math.PI * 2, false);//绘制一个圆形
+        context.closePath();//结束路径
+        context.fill();//填充路径
+        context.stroke();
+        console.log('yuan 1');
+    }
+    function circletwo(context){
+        context.beginPath();//开始路径
+        context.fillStyle = "rgb(195,195,195)";
+        context.strokeStyle = "rgb(210,210,210)";
+        context.arc(320, 320, 100, 0, Math.PI * 2, false);//绘制一个圆形
+        context.closePath();//结束路径
+        context.fill();//填充路径
+        context.stroke();
+        console.log('yuan 2');
+    }
+    function circlethree(context){
+        context.beginPath();//开始路径
+        context.fillStyle = "rgb(215,215,215)";
+        context.strokeStyle = "rgb(210,210,210)";
+        context.arc(320, 320, 150, 0, Math.PI * 2, false);//绘制一个圆形
+        context.closePath();//结束路径
+        context.fill();//填充路径
+        context.stroke();
+        console.log('yuan 3');
+    }
+    function circlefour(context){
+        context.beginPath();//开始路径
+        context.fillStyle = "rgb(233,233,233)";
+        context.strokeStyle = "rgb(210,210,210)";
+        context.arc(320, 320, 200, 0, Math.PI * 2, false);//绘制一个圆形
+        context.closePath();//结束路径
+        context.fill();//填充路径
+        context.stroke();
+        console.log('yuan 4');
+    }
+    function circlefive(context){
+        context.beginPath();//开始路径
+        context.fillStyle = "rgb(245,245,245)";
+        context.strokeStyle = "rgb(210,210,210)";
+        context.arc(320, 320, 250, 0, Math.PI * 2, false);//绘制一个圆形
+        context.closePath();//结束路径
+        context.fill();//填充路径
+        context.stroke();
+        console.log('yuan 5');
+    }
+    function circlesix(context){
+        context.beginPath();//开始路径
+        context.fillStyle = "rgb(255,255,255)";
+        context.strokeStyle = "rgb(210,210,210)";
+        context.arc(320, 320, 300, 0, Math.PI * 2, false);//绘制一个圆形
+        context.closePath();//结束路径
+        context.fill();//填充路径
+        context.stroke();
+        console.log('yuan 6');
+    }
+    //圆中的文本
+    function circleText(num,valueArray){
+        for(var i = 0;i < num;i++){
+            $('#concentricCircles').append(' <p id="circleP'+(i+1)+'" class="circle-p">'+valueArray[i]+'</p>');
+        }
+    }
+    function circleDraw(circlenum,context){
+        switch(circlenum){
+            case 1:circleone(context);
+                    break;
+            case 2:circleone(context);
+                    circletwo(context);
+                    break;
+            case 3:circleone(context);
+                    circletwo(context);
+                    circlethree(context);
+                    break;
+            case 4:circleone(context);
+                    circletwo(context);
+                    circlethree(context);
+                    circlefour(context);
+                    break;
+            case 5:circleone(context);
+                    circletwo(context);
+                    circlethree(context);
+                    circlefour(context);
+                    circlefive(context);
+                    break;
+            case 6:circleone(context);
+                    circletwo(context);
+                    circlethree(context);
+                    circlefour(context);
+                    circlefive(context);
+                    circlesix(context);
+                    break;
+            default:circleone(context);
+        }
+    }
 
-    context.beginPath();//开始路径
-    context.fillStyle = "rgb(245,245,245)";
-    context.strokeStyle = "rgb(210,210,210)";
-    context.arc(320, 320, 250, 0, Math.PI * 2, false);//绘制一个圆形
-    context.closePath();//结束路径
-    context.fill();//填充路径
-    context.stroke();
+    //获得service
+    var s = new BaconFFService();
+    var surveyInfo = s.GetSurvey(SURVEYID);//传回来是字符串
+    var surveyObject = toObject(surveyInfo.substring(1,surveyInfo.length-1));
+    var max = surveyObject.SurveyObjectsCount;
+    var objectCount = surveyObject.SurveyObjectsCount;
+    var ValueMax = surveyObject.ValueMax;
+    var circleNum = parseInt(ValueMax)-1;
+    //动态绘制标靶
+    circleDraw(circleNum,context);
+    console.log('circleNum = '+circleNum);
+    for(var i = 1;i <= objectCount;i++){
+        $('#termList').append('<div id="drag'+i+'"><a class="menu"></a></div>');
+    }
+    //获得随机数
+    var randomNum = getRadomNum(1,max);
 
-    context.beginPath();//开始路径
-    context.fillStyle = "rgb(233,233,233)";
-    context.strokeStyle = "rgb(210,210,210)";
-    context.arc(320, 320, 200, 0, Math.PI * 2, false);//绘制一个圆形
-    context.closePath();//结束路径
-    context.fill();//填充路径
-    context.stroke();
-
-    context.beginPath();//开始路径
-    context.fillStyle = "rgb(215,215,215)";
-    context.strokeStyle = "rgb(210,210,210)";
-    context.arc(320, 320, 150, 0, Math.PI * 2, false);//绘制一个圆形
-    context.closePath();//结束路径
-    context.fill();//填充路径
-    context.stroke();
-
-    context.beginPath();//开始路径
-    context.fillStyle = "rgb(195,195,195)";
-    context.strokeStyle = "rgb(210,210,210)";
-    context.arc(320, 320, 100, 0, Math.PI * 2, false);//绘制一个圆形
-    context.closePath();//结束路径
-    context.fill();//填充路径
-    context.stroke();
-
-    context.beginPath();//开始路径
-    context.fillStyle = "rgb(117,170,214)";
-    context.strokeStyle = "rgb(210,210,210)";
-    context.arc(320, 320, 50, 0, Math.PI * 2, false);//绘制一个圆形
-    context.closePath();//结束路径
-    context.fill();//填充路径
-    context.stroke();
+    $('#drag'+randomNum).addClass('dsp-none');
+    var surveyObjects = s.GetSurveyObjects(SURVEYID);
+    var objectsLength = surveyObjects.length;
+    var surveyObjectsStr = surveyObjects.substring(1,objectsLength-2);
+    console.log('surveyObjectsStr:'+surveyObjectsStr);
+    var objectArray = surveyObjectsStr.split('},');
+    for(var j = 0;j < objectArray.length;j++){
+        objectArray[j] = objectArray[j]+'}';
+        console.log('objectArray['+j+']:'+ objectArray[j]);
+        objectArray[j] = toObject(objectArray[j]);
+        console.log('objectArray['+j+']:'+ objectArray[j]);
+        $('#drag'+(j+1)).find('.menu').text(objectArray[j].ObjectName);
+    }
+    var circleHeart =  $('#drag'+randomNum+' a').text();
+    console.log('circleHeart:'+circleHeart);
+    var circleValueArray = [circleHeart,'Extremely Related','Largely Related','Moderately Related','somewhat Related','slightly Related'];
+    //给标靶动态填数据
+    circleText(circleNum,circleValueArray);
+    console.log('objectArray:'+objectArray);
+    //console.log(s.AddSurveyResult());
+    //调用保存结果的方法：传入参数为:SurveyID、ResultValue、ResponseID、BzzID、UserName、UserEmail、Memo
 
     //初始化进度条
     $('#progressBar').progressbar({value:10});
@@ -161,7 +245,6 @@ $(function () {
 
     //console.log('positionList[0].left:' + positionList[0].left + ',positionList[0].top:' + positionList[0].top);
     //调用接口，初始化所有term
-
     /** 拖动效果 ，jquery.ui.Draggable和Droppable**/
     $('.leftbar div').draggable({
         containment: '.top',
@@ -188,9 +271,7 @@ $(function () {
                 var startPos = positionList[idNum-1];
                 dragobject.resetDom(startPos);
             }
-            console.log(nowPos.top+LEFTBAR.LEFTMIN);
             if(nowPos.top < LEFTBAR.TOPMIN||nowPos.top > DROPPOS.TOPMAX){
-                console.log('进入');
                 var dragId = dragobject.attr('id');
                 var idNum = sliceDragId(dragId);
                 var startPos = positionList[idNum-1];
@@ -208,10 +289,6 @@ $(function () {
                 dragobject.find('img').remove();
             }
         },
-//        over: function (event, ui) {
-//            var $that = ui.draggable;
-//            $that.draggable('option', 'revert', 'false');
-//        },
         out:function(event,ui){
             $('.leftbar div').find('img').remove();
         }
@@ -229,7 +306,6 @@ $(function () {
                 drag.resetDom(startPos, nowPos);
             }
         }
-        //怎么判断term（absolute）是否在同心圆内？下面是折衷的办法
         if(count == 0){
             $('#shade').css('background','#929394').removeClass('dsp-none').addClass('dsp-block');
             alert("please select a term on the left and drop onto the target");
@@ -255,7 +331,6 @@ $(function () {
             },10000);
         }
     });
-
     /** 点击帮助按钮，弹出对话框和遮罩 **/
     $('#help').on('click',function(){
         $('#shade').removeClass('dsp-none').addClass('dsp-block');
