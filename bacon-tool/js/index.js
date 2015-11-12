@@ -91,7 +91,7 @@ $(function () {
     }
     /** 初始化同心圆 **/
     //圆也要动态创建
-    var context = $("#circle").get(0).getContext("2d");//获得上下文
+
     function circleone(context){
         context.beginPath();//开始路径
         context.fillStyle = "rgb(117,170,214)";
@@ -200,6 +200,7 @@ $(function () {
     var ValueMax = surveyObject.ValueMax;
     var circleNum = parseInt(ValueMax)-1;
     //动态绘制标靶
+    var context = $("#circle").get(0).getContext("2d");//获得上下文
     circleDraw(circleNum,context);
     console.log('circleNum = '+circleNum);
     for(var i = 1;i <= objectCount;i++){
