@@ -86,3 +86,7 @@ function draw() {
         ctx.stroke();
       }
     }
+
+    $(function(){
+      $("#termList").children('.ui-draggable').css("height","25px");
+    })
