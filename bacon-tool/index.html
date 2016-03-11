@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>耙子</title>
+    <title>Study</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link href="css/index.css" rel="stylesheet" type="text/css" />
+    <link href="css/circle.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body onload="draw();">
 <!-- 外层包裹div-->
 <div class="wrap">
     <!-- 上半部分-->
@@ -23,9 +24,41 @@
             <div id="progressBar"></div>
             <div class="btn" id="help">HELP</div>
             <div class="btn next-btn">NEXT</div>
-            <canvas id="circle" width="650" height="630">
-                
+            <canvas id="circle" width="650" height="630"> 
             </canvas>
+            <div class="circle-wrap" >
+                
+                <div class="circleInner">
+                    <canvas id="circle6" width="650" height="630">
+                        
+                    </canvas>
+                </div>
+                <div class="circleInner">
+                    <canvas id="circle5" width="650" height="630">
+                        
+                    </canvas>
+                </div>
+                <div class="circleInner">
+                    <canvas id="circle4" width="650" height="630">
+                        
+                    </canvas>
+                </div>
+                <div class="circleInner">
+                    <canvas id="circle3" width="650" height="630">
+                        
+                    </canvas>
+                </div>
+                <div class="circleInner">
+                    <canvas id="circle2" width="650" height="630">
+                        
+                    </canvas>
+                </div>
+                <div class="circleInner">
+                    <canvas id="circle1" width="650" height="630">
+                        
+                    </canvas>
+                </div>
+            </div>
             <div class="btn next-btn">NEXT</div>
         </div>
         <div class="divide right-notify"><span>Not related</span></div>

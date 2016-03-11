@@ -93,6 +93,7 @@ $(function () {
     //圆也要动态创建
 
     function circleone(context){
+        // var context = $("#circle1")[0].getContext("2d");
         context.beginPath();//开始路径
         context.fillStyle = "rgb(117,170,214)";
         context.strokeStyle = "rgb(210,210,210)";
@@ -103,6 +104,7 @@ $(function () {
         console.log('yuan 1');
     }
     function circletwo(context){
+        // var context = $("#circle2")[0].getContext("2d");
         context.beginPath();//开始路径
         context.fillStyle = "rgb(195,195,195)";
         context.strokeStyle = "rgb(210,210,210)";
@@ -113,6 +115,7 @@ $(function () {
         console.log('yuan 2');
     }
     function circlethree(context){
+        // var context = $("#circle3")[0].getContext("2d");
         context.beginPath();//开始路径
         context.fillStyle = "rgb(215,215,215)";
         context.strokeStyle = "rgb(210,210,210)";
@@ -123,6 +126,7 @@ $(function () {
         console.log('yuan 3');
     }
     function circlefour(context){
+        // var context = $("#circle4")[0].getContext("2d");
         context.beginPath();//开始路径
         context.fillStyle = "rgb(233,233,233)";
         context.strokeStyle = "rgb(210,210,210)";
@@ -133,6 +137,7 @@ $(function () {
         console.log('yuan 4');
     }
     function circlefive(context){
+        // var context = $("#circle5")[0].getContext("2d");
         context.beginPath();//开始路径
         context.fillStyle = "rgb(245,245,245)";
         context.strokeStyle = "rgb(210,210,210)";
@@ -143,6 +148,7 @@ $(function () {
         console.log('yuan 5');
     }
     function circlesix(context){
+        // var context = $("#circle6")[0].getContext("2d");
         context.beginPath();//开始路径
         context.fillStyle = "rgb(255,255,255)";
         context.strokeStyle = "rgb(210,210,210)";
@@ -313,7 +319,7 @@ $(function () {
             $('#shade').css('background','#fff').removeClass('dsp-block').addClass('dsp-none');
         }
         //最小的圆中的文本发生变化
-        $('#circleP6').text();
+        $('#circleP1').text('1');
         //每当点击一次next按钮，更新进度条的状态
         progressbar = $( "#progressBar" );
         var areaValuenow =  progressbar.attr('aria-valuenow');

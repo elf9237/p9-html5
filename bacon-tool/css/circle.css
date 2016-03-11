@@ -1,0 +1,10 @@
+.circle-wrap{width: 650px;height: 630px;}
+#circle{position: absolute;}
+.circle-wrap{position: relative;}
+.circleInner{position: absolute;}
+
+.divide span{
+	margin-left: 40px;
+}
+
+
